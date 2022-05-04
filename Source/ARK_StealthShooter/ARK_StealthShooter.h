@@ -4,3 +4,4 @@
 
 #include "CoreMinimal.h"
 
+#define WEAPOM_COLLISION ECC_GameTraceChannel1
