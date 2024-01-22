@@ -35,6 +35,7 @@ void ASTS_BaseCharacter::StopFire()
 
 void ASTS_BaseCharacter::OnHealthChanged(USTS_HealthComponent* HealthComp, float Health, float HealthDelta, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
+
 }
 
 void ASTS_BaseCharacter::OnDeath(USTS_HealthComponent* HealthComp, AController* InstigatedBy, AActor* Killer)

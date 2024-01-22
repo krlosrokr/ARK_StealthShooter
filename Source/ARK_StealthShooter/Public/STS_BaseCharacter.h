@@ -28,7 +28,7 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	ASTS_Weapon* CurrentWeapon;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	USTS_HealthComponent* HealthComponent;
 
 public:
