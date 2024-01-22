@@ -5,6 +5,7 @@
 #include "GameFramework/PawnMovementComponent.h"
 #include <STS_Weapon.h>
 #include <STS_HealthComponent.h>
+#include "Animation/AnimInstance.h"
 
 // Sets default values
 ASTS_BaseCharacter::ASTS_BaseCharacter()
@@ -14,7 +15,8 @@ ASTS_BaseCharacter::ASTS_BaseCharacter()
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	WeaponSocketName = "WPN_SCK";
 
-	HealthComponent = CreateDefaultSubobject<USTS_HealthComponent>(TEXT("HEalthComponent"));
+	HealthComponent = CreateDefaultSubobject<USTS_HealthComponent>(TEXT("HealthComponent"));
+	bIsMeleeAttacking = false;
 }
 
 void ASTS_BaseCharacter::StartFire()
@@ -44,6 +46,23 @@ void ASTS_BaseCharacter::OnDeath(USTS_HealthComponent* HealthComp, AController* 
 	GetMovementComponent()->StopMovementImmediately();
 	this->SetActorEnableCollision(false);
 
+}
+
+void ASTS_BaseCharacter::StartMelee()
+{
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+
+	if (AnimInstance != nullptr)
+	{
+		AnimInstance->OnMontageEnded.AddDynamic(this, &ASTS_BaseCharacter::FinishMelee);
+		AnimInstance->Montage_Play(MeleeAttackMontage);
+		bIsMeleeAttacking = true;
+	}
+}
+
+void ASTS_BaseCharacter::FinishMelee(UAnimMontage* AnimMontage, bool bInterrupted)
+{
+	bIsMeleeAttacking = false;
 }
 
 

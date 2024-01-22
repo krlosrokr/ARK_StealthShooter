@@ -31,6 +31,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	USTS_HealthComponent* HealthComponent;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Melee")
+	UAnimMontage* MeleeAttackMontage;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Melee")
+	uint8 bIsMeleeAttacking :1;
+
 public:
 
 	UFUNCTION(BlueprintCallable)
@@ -44,6 +50,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void OnDeath(USTS_HealthComponent* HealthComp, class AController* InstigatedBy, AActor* Killer);
+
+	UFUNCTION(BlueprintCallable)
+	void StartMelee();
+
+	UFUNCTION(BlueprintCallable)
+	void FinishMelee(UAnimMontage* AnimMontage, bool bInterrupted);
 
 protected:
 	// Called when the game starts or when spawned
